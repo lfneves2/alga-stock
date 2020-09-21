@@ -2,7 +2,7 @@ import React from 'react';
 import logo from '../../logo.svg';
 import './App.css';
 import TestComponent from '../TestComponents';
-import ClassComponent from '../ClassComponent';
+{/*import ClassComponent from '../ClassComponent';*/}
 
 
 function App() {
@@ -11,7 +11,7 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <TestComponent name="Leandro"/>
-        <ClassComponent name="mundo" />
+        {/*<ClassComponent name="mundo" />*/}
         <a
           className="App-link"
           href="https://reactjs.org"

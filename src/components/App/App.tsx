@@ -1,10 +1,14 @@
 import React from 'react';
-import Button from '../Button';
+
 import Header from '../Header';
+
+import Button from '../../shared/Button';
+import Container from '../../shared/Container';
+
 import './App.css';
 
 function TestComponent() {
-  return <img width="12" src="https://lh3.googleusercontent.com/proxy/yoXYCNI8vo98JkuCouINhENdV5atQQYY_N3Km3A6_ps0qclbBW7XNSJYoBkWqtXvHkTMS5K8gLRLZnpkvt34T_9XXMPuHdaE1Thu5x8S30rODUcEAU65JyGxkV_ywCzmbt16_Trckh3TYCAQaOyZ8-rROTBFlxe88U1BQjPb2DQOqF_4Qh35DZ30yFsaTI-8ArbaMW2LioTwXK_9slTbvEzd8MR81w" alt="Search icon"/>
+  return <img width="12" src="https://img2.gratispng.com/20181203/otz/kisspng-magnifying-glass-computer-icons-zoom-lens-scalable-search-shop-svg-png-icon-free-download-33415-5c05ad5bce5493.9552953015438759318451.jpg" alt="Search icon"/>
 }
 
 function App() {
@@ -12,14 +16,14 @@ function App() {
     <div className="App">
       <Header title="AlgaStock"/>
 
-      <div className="Container">
-        <Button
-          appendIcon={<TestComponent />}
-          onClick={() => window.alert('teste')}
-        >
-          Potata
-        </Button>
-      </div>
+        <Container >
+          <Button
+            appendIcon={<TestComponent />}
+            onClick={() => window.alert('teste')}
+          >
+            Alert
+          </Button>
+        </Container>
     </div>
   );
 }

@@ -1,4 +1,4 @@
-div {
-    margin: 10px;
-    min-width: 480px;
+div.AppInput {
+    margin: 10px auto;
+    max-width: 480px;
 }

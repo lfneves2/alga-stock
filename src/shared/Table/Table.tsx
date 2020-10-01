@@ -1,62 +1,33 @@
 import React from 'react';
+import organizeData from '../../util/organizeDataForTable';
 import './Table.scss';
-import Products from './Table.mockdata';
 
-const headers: TableHeader[] = [
-    {key: 'name', value: 'Product'},
-    {key: 'price', value: 'Price', right: true},
-    {key: 'stock', value: 'Stock', right: true},
-]
-
-declare interface TableHeader {
+export interface TableHeader {
     key: string
     value: string
     right?: boolean
 }
 
-type IndexedHeaders = {
-    [key: string]: TableHeader
+declare interface TableProps {
+    headers: TableHeader[],
+    data: any[]
+
+    enabledAction?: boolean,
+
+    onDelete?: (item: any) => void
+    onDetails?: (item: any) => void
+    onEdit?: (item: any) => void
 }
 
-type OrganizedItem = {
-    [key: string]: any
-}
 
-function organizeData(data: any[], headers: TableHeader[]): [OrganizedItem[],IndexedHeaders] {
-    const indexHeaders: IndexedHeaders = {}
 
-    headers.forEach(header => {
-        indexHeaders[header.key]={
-            ...header
-        }
-    })
-
-    const headerKeysInOrder = Object.keys(indexHeaders)
-
-    const organizedData = data.map(item => {
-        const organizedItem: OrganizedItem = {}
-
-        headerKeysInOrder.forEach(key => {
-            organizedItem[key] = item[key];
-        })
-
-        organizedItem.$original = item;
-
-        return organizedItem;
-    })
-    
-    return [organizedData, indexHeaders];
-}
-
-const Table = () => {
-    const [organizedData, indexHeaders] = organizeData(Products, headers)
-    console.table(organizedData);
-    console.table(indexHeaders);
+const Table: React.FC<TableProps> = (props) => {
+    const [organizedData, indexHeaders] = organizeData(props.data, props.headers)
     return <table className="AppTable">
        <thead>
            <tr>
             {
-                headers.map(header => 
+                props.headers.map(header => 
                     <th 
                         className={header.right ? 'right' : ''} 
                         key={header.key}>{header.value}

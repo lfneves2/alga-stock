@@ -38,10 +38,11 @@ const Table: React.FC<TableProps> = (props) => {
        <tbody>
        {
            organizedData.map((row,i) => {
+               
             return <tr key={i}>
                 {
-                    Object.keys(row).map(item => {
-                        return item !== '$original' ? <td className={indexHeaders[item].right ? 'right' : ''}>{row[item]}</td> : null
+                    Object.keys(row).map((item, i) => {
+                        return item !== '$original' ? <td  key={row.$original.id+i} className={indexHeaders[item].right ? 'right' : ''}>{row[item]}</td> : null
                     })
                 }
             </tr>

@@ -31,7 +31,6 @@ function App() {
   }
 
   const handlerProductUpdate = (newProduct: Product) => {
-    console.log(products.map(product => 'Id product '+product.id + '+ id newProduct '+ newProduct.id))
     setProducts(products.map(product => 
       product.id === newProduct.id ? newProduct : product
     ))

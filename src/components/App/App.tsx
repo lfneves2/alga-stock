@@ -4,7 +4,7 @@ import Header from '../Header';
 
 import Container from '../../shared/Container';
 import Table, { TableHeader } from '../../shared/Table/Table';
-import Products from '../../shared/Table/Table.mockdata';
+import Products, { Product } from '../../shared/Table/Table.mockdata';
 
 import './App.css';
 import ProductForm, { ProductCreator } from '../ProductForm/ProductForm';
@@ -29,6 +29,14 @@ function App() {
       }
     ])
   }
+
+  const handlerProductUpdate = (newProduct: Product) => {
+    console.log(products.map(product => 'Id product '+product.id + '+ id newProduct '+ newProduct.id))
+    setProducts(products.map(product => 
+      product.id === newProduct.id ? newProduct : product
+    ))
+  }
+
   return (
     <div className="App">
       <Header title="AlgaStock"/>
@@ -38,7 +46,11 @@ function App() {
           data={products}
         />
 
-        <ProductForm onSubmit={handlerProductSubmit}/>
+        <ProductForm 
+          form={products[0]}
+          onSubmit={handlerProductSubmit}
+          onUpdate={handlerProductUpdate}
+          />
 
       </Container>
     </div>

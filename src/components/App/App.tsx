@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Swal from 'sweetalert2';
 
 import Header from '../Header';
 
@@ -10,6 +11,7 @@ import './App.css';
 import ProductForm, { ProductCreator } from '../ProductForm/ProductForm';
 
 const headers: TableHeader[] = [
+  {key: 'id', value: '#'},
   {key: 'name', value: 'Product'},
   {key: 'price', value: 'Price', right: true},
   {key: 'stock', value: 'Stock', right: true},
@@ -18,10 +20,10 @@ const headers: TableHeader[] = [
 
 function App() {
   const [products, setProducts] = useState(Products);
-  const [updatingProduct, setUpdatingProduct] = useState<Product | undefined>(products[0]);
+  const [updatingProduct, setUpdatingProduct] = useState<Product | undefined>();
   
   const handlerProductSubmit = (product: ProductCreator) => {
-    
+    console.log(product)
     setProducts([
       ...products,
       {
@@ -39,6 +41,46 @@ function App() {
     setUpdatingProduct(undefined)
   }
 
+  const handlerProductEdit = (product: Product) => {
+    console.log(product)
+    setUpdatingProduct(product);
+  }
+
+  const handlerProductDetail = (product: Product) => {
+    Swal.fire(
+      'Product Detail',
+      `${product.name} costs $${product.price} we have avaible ${product.stock} in stock`,
+      'info'
+    )
+  }
+
+  const deleteProduct = (id: number) => {
+    setProducts(products.filter(product => 
+      product.id !== id
+    ))
+  }
+
+  const handlerProductDelete =  (product: Product) => {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#09f',
+      cancelButtonColor: '#d33',
+      confirmButtonText: `Yes, delete ${product.name}!`
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteProduct(product.id);
+        Swal.fire(
+          'Deleted!',
+          'Your file has been deleted.',
+          'success'
+        )
+      }
+    })
+  }
+
   return (
     <div className="App">
       <Header title="AlgaStock"/>
@@ -47,9 +89,9 @@ function App() {
           headers={headers}
           data={products}
           enabledAction
-          onDelete={console.log}
-          onDetails={console.log}
-          onEdit={console.log}
+          onDelete={handlerProductDelete}
+          onDetails={handlerProductDetail}
+          onEdit={handlerProductEdit}
         />
 
         <ProductForm 

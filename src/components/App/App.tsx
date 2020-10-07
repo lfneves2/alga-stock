@@ -38,7 +38,7 @@ function App() {
     setProducts([
       ...products,
       {
-        id: products.length +1,
+        _id: String(products.length +1),
         ...product
       }
     ])
@@ -46,7 +46,7 @@ function App() {
 
   const handlerProductUpdate = (newProduct: Product) => {
     setProducts(products.map(product => 
-      product.id === newProduct.id ? newProduct : product
+      product._id === newProduct._id ? newProduct : product
     ))
 
     setUpdatingProduct(undefined)
@@ -65,9 +65,9 @@ function App() {
     )
   }
 
-  const deleteProduct = (id: number) => {
+  const deleteProduct = (id: string) => {
     setProducts(products.filter(product => 
-      product.id !== id
+      product._id !== id
     ))
   }
 
@@ -82,7 +82,7 @@ function App() {
       confirmButtonText: `Yes, delete ${product.name}!`
     }).then((result) => {
       if (result.isConfirmed) {
-        deleteProduct(product.id);
+        deleteProduct(product._id);
         Swal.fire(
           'Deleted!',
           'Your file has been deleted.',

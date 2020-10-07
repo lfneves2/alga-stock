@@ -21,7 +21,7 @@ function App() {
   const [updatingProduct, setUpdatingProduct] = useState<Product | undefined>(products[0]);
   
   const handlerProductSubmit = (product: ProductCreator) => {
-    console .log(product)
+    
     setProducts([
       ...products,
       {
@@ -46,6 +46,10 @@ function App() {
         <Table 
           headers={headers}
           data={products}
+          enabledAction
+          onDelete={console.log}
+          onDetails={console.log}
+          onEdit={console.log}
         />
 
         <ProductForm 

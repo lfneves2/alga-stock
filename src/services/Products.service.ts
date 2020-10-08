@@ -1,4 +1,4 @@
-import { ProductCreator } from '../components/ProductForm/ProductForm';
+import { ProductCreator } from '../components/Products/ProductForm';
 import { Product } from '../shared/Table/Table.mockdata';
 import http from '../utils/http';
 

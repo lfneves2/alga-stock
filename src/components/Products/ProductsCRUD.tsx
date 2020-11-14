@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
-import { deleteProducts, getAllProducts } from '../../services/Products.service';
 import Table, { TableHeader } from '../../shared/Table/Table';
 import { Product } from '../../shared/Table/Table.mockdata';
 import ProductForm, { ProductCreator } from './ProductForm';
 import { connect, useDispatch } from 'react-redux';
-import { getProducts, insertNewProduct, updateProducts } from '../../redux/Products/Products.action';
+import * as ProductActions from '../../redux/Products/Products.Action';
+import { RootState } from '../../redux';
 
 const headers: TableHeader[] = [
     {key: 'id', value: '#'},
@@ -26,8 +26,7 @@ const ProductsCRUD: React.FC<ProductsCRUDProps> = (props) => {
     
     async function fetchData() {
       try {
-        await dispatch(getProducts());
-        Swal.fire('Uhul','Fetch done', 'success')
+        await dispatch(ProductActions.getProducts());
       } catch (err){
         Swal.fire('Oops!', err.message, 'error');
       }
@@ -39,8 +38,7 @@ const ProductsCRUD: React.FC<ProductsCRUDProps> = (props) => {
 
     const handlerProductSubmit = async (product: ProductCreator) => {
       try {
-        dispatch(insertNewProduct(product))
-        fetchData();
+        dispatch(ProductActions.insertNewProduct(product))
       }catch (err) {
         Swal.fire('Oops!', err.message, 'error');
       }
@@ -48,7 +46,7 @@ const ProductsCRUD: React.FC<ProductsCRUDProps> = (props) => {
   
     const handlerProductUpdate = async (newProduct: Product) => {
       try{
-        await dispatch(updateProducts(newProduct));
+        await dispatch(ProductActions.updateProduct(newProduct));
       } catch (err) {
         Swal.fire('Oops!', err.message, 'error');
       }
@@ -71,8 +69,7 @@ const ProductsCRUD: React.FC<ProductsCRUDProps> = (props) => {
   
     const deleteProduct = async(id: string) => {
       try {
-        await deleteProducts(id);
-        fetchData();
+        await dispatch(ProductActions.deleteProduct(id));
         Swal.fire('Uhul!', 'Product successfully deleted', 'success');
       } catch (err) {
         Swal.fire('Oops!', err.message, 'error');
@@ -113,7 +110,7 @@ const ProductsCRUD: React.FC<ProductsCRUDProps> = (props) => {
     </>
 }
 
-const mapStateToProps = (state: any) => ({
+const mapStateToProps = (state: RootState) => ({
     products: state.products
 
 })

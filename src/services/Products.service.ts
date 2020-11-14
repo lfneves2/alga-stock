@@ -16,5 +16,5 @@ export const updateSingleProduct = ({_id, name, price, stock}: Product) =>
         ...(stock && {stock})
     })
 
-export const deleteProducts = (id: string) => 
-    http.delete(`http://localhost:3024/products/${id}`)
+export const deleteSingleProduct = (id: string) => 
+    http.delete(`/products/${id}`)

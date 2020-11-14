@@ -1,19 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import Swal from 'sweetalert2';
+import React from 'react';
+import HomeView from '../../views/HomeView';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
-import Header from '../Header';
-
-import Container from '../../shared/Container';
 import './App.css';
-import ProductsCRUD from '../Products/ProductsCRUD';
 
 function App() {
   return (
     <div className="App">
-      <Header title="AlgaStock"/>
-      <Container >
-        <ProductsCRUD />
-      </Container>
+      <BrowserRouter>
+        <Switch>
+          <Route path="/" exact component={HomeView} />
+        </Switch>
+      </BrowserRouter>
     </div>
   );
 }
